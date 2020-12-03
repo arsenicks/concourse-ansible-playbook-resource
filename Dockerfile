@@ -9,7 +9,7 @@ RUN set -eux; \
       libffi-dev \
       openssl-dev; \
     pip3 install --upgrade pip cffi; \
-    pip3 install ansible boto pywinrm; \
+    pip3 install ansible>=2.10.4 boto pywinrm; \
     apk del build-dependencies; \
     rm -rf /var/cache/apk/*; \
     mkdir -p /etc/ansible; \
