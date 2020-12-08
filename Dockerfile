@@ -47,7 +47,7 @@ RUN rm -f /lib/systemd/system/systemd*udev* \
   && rm -f /lib/systemd/system/getty.target
 
 COPY assets/ /opt/resource/
-FROM main as testing
+
 
 
 RUN set -eux; \
@@ -63,7 +63,7 @@ VOLUME ["/sys/fs/cgroup", "/tmp", "/run"]
 WORKDIR /resource
 RUN rspec
 
-FROM main
+
 
 
 
