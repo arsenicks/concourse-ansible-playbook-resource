@@ -19,7 +19,10 @@ RUN apt-get update \
        python3-venv \
        python3-wheel \
        software-properties-common \
+       ruby-rspec \
+       wget \
        rsyslog systemd systemd-cron sudo iproute2 \
+       ash openssh-client ruby git ruby-json python3 python3-pip openssl ca-certificates \
     && rm -Rf /var/lib/apt/lists/* \
     && rm -Rf /usr/share/doc && rm -Rf /usr/share/man \
     && apt-get clean 
@@ -45,6 +48,18 @@ RUN rm -f /lib/systemd/system/systemd*udev* \
 
 COPY assets/ /opt/resource/
 
+
+RUN set -eux; \
+    gem install rspec; \
+    wget -q -O - https://raw.githubusercontent.com/troykinsella/mockleton/master/install.sh | bash; \
+    cp /usr/local/bin/mockleton /usr/local/bin/ansible-galaxy; \
+    cp /usr/local/bin/mockleton /usr/local/bin/ansible-playbook; \
+    cp /usr/local/bin/mockleton /usr/bin/ssh-add;
+
+COPY . /resource/
+
+WORKDIR /resource
+RUN rspec
 
 VOLUME ["/sys/fs/cgroup", "/tmp", "/run"]
 CMD ["/lib/systemd/systemd"]
