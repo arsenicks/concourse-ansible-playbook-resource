@@ -6,7 +6,7 @@ describe "commands:in" do
 
   it "should exist" do
     expect(File).to exist(in_file)
-    expect(File.stat(in_file).mode.to_s(8)[3..5]).to eq("775")
+    expect(File.stat(in_file).mode.to_s(8)[3..5]).to eq("755")
   end
 
   it "should return an empty version" do
